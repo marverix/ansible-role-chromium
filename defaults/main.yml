@@ -1,0 +1,6 @@
+---
+chromium_allow_root: true # no-sandbox
+chromium_disable_gpu: true # disable-gpu
+chromium_disable_web_security: false # disable-web-security
+chromium_ignore_certificate_errors: false # ignore-certificate-errors
+chromium_custom_flags: [] # https://peter.sh/experiments/chromium-command-line-switches/

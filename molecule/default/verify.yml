@@ -1,0 +1,20 @@
+---
+- name: Verify
+  hosts: all
+  tasks:
+
+  - name: Check Chromium version
+    command: "chromium-browser --version"
+    register: test
+
+  - name: Assert result
+    assert:
+      that: "'Chromium' in test.stdout"
+
+  - name: Check if Chromium can dump DOM
+    command: "chromium-browser --headless --dump-dom http://sierocinscy.pl"
+    register: test
+
+  - name: Assert result
+    assert:
+      that: "'<title>Sierocińscy.pl</title>' in test.stdout"
