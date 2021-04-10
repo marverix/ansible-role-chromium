@@ -1,4 +1,8 @@
 ---
+os: linux
+arch: amd64
+dist: focal
+
 language: python
 cache: pip
 services: docker
