@@ -4,7 +4,7 @@ cache: pip
 services: docker
 
 install:
-  - pip install molecule yamllint ansible-lint docker
+  - pip install -r https://raw.githubusercontent.com/marverix/ansible-roles-common/latest/test-requirements.txt
 
 script:
   - molecule test
