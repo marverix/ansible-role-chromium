@@ -1,3 +1,11 @@
 ---
 chromium_set_flags: []
 chromium_set_flags_string: ""
+
+chromium_uninstall:
+  - chromium
+  - chromium-browser
+
+chromium_archive_tmp: /tmp/chromium.tar.xz
+chromium_dest: /etc/chromium-browser
+chromium_wrapper: "{{ chromium_dest }}/chromium-browser"

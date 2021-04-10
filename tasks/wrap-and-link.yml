@@ -1,0 +1,22 @@
+---
+
+- name: Create wrapper
+  template:
+    src: wrapper.sh.j2
+    dest: "{{ chromium_wrapper }}"
+    mode: 0755
+    owner: root
+  register: result
+  changed_when: "result.diff | length > 0"
+
+- name: Link /usr/bin/chromium-browser
+  file:
+    src: "{{ chromium_wrapper }}"
+    dest: "/usr/bin/chromium-browser"
+    state: link
+
+- name: Link /usr/bin/chromium
+  file:
+    src: "{{ chromium_wrapper }}"
+    dest: "/usr/bin/chromium"
+    state: link

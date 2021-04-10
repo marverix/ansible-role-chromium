@@ -10,16 +10,20 @@ lint: |
   ansible-lint .
 
 platforms:
-  - name: ubuntu16
-    image: bitbar/ubupy:xenial
+  - name: ubuntu18
+    image: bitbar/ubupy:bionic
     pre_build_image: true
 
-  - name: ubuntu18
+  - name: ubuntu20
     image: bitbar/ubupy:bionic
     pre_build_image: true
 
   - name: centos7
     image: pycontribs/centos:7
+    pre_build_image: true
+
+  - name: centos8
+    image: pycontribs/centos:8
     pre_build_image: true
 
 provisioner:

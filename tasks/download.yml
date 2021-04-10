@@ -1,0 +1,25 @@
+---
+
+- name: Download the file
+  get_url:
+    url: "{{ chromium_archive_url }}"
+    dest: "{{ chromium_archive_tmp }}"
+    checksum: "sha1:{{ chromium_archive_sha1 }}"
+  register: response
+  changed_when: "response.status_code != 200"
+
+- name: Unarchive
+  unarchive:
+    src: "{{ chromium_archive_tmp }}"
+    dest: "{{ chromium_dest }}"
+    remote_src: yes
+    extra_opts: [--strip-components=1]
+  register: result
+  changed_when: "result.extract_results.rc != 0"
+
+- name: Clean
+  file:
+    path: "{{ chromium_archive_tmp }}"
+    state: absent
+  register: result
+  changed_when: "result.diff.before.state != 'file' or result.diff.after.state != 'absent'"

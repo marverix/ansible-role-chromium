@@ -1,0 +1,9 @@
+#!/bin/bash
+
+WRAPPER="`readlink -f "$0"`"
+HERE="`dirname "$WRAPPER"`"
+ARGS=({{ chromium_set_flags_string }})
+
+set -- "${ARGS[@]}" "$@"
+
+exec "$HERE/chrome" "$@"

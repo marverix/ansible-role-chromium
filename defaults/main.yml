@@ -1,4 +1,7 @@
 ---
+chromium_archive_url: https://github.com/macchrome/linchrome/releases/download/v89.0.4389.114-r843830-portable-ungoogled-Lin64/ungoogled-chromium_89.0.4389.114_1.vaapi_linux.tar.xz
+chromium_archive_sha1: A45A003079E25BECCAF71E332F38416F76748B68
+
 chromium_allow_root: true # no-sandbox
 chromium_disable_gpu: true # disable-gpu
 chromium_disable_web_security: false # disable-web-security

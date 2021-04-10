@@ -1,57 +1,13 @@
 ---
 
-- name: Install
-  block:
+- name: Prepare
+  include_tasks: prepare.yml
 
-    - name: Install package (Ubuntu)
-      when: ansible_distribution == 'Ubuntu'
-      apt:
-        name: chromium-browser
-        state: latest
-        update_cache: yes
-
-    - name: Install package (CentOS)
-      when: ansible_distribution == 'CentOS'
-      yum:
-        name: chromium
-        state: latest
-        update_cache: yes
+- name: Download
+  include_tasks: download.yml
 
 - name: Set up flags
-  block:
+  include_tasks: set-up-flags.yml
 
-    - name: Allow root
-      when: chromium_allow_root
-      set_fact:
-        chromium_set_flags: "{{ chromium_set_flags + [ 'no-sandbox' ] }}"
-
-    - name: Disable GPU
-      when: chromium_disable_gpu
-      set_fact:
-        chromium_set_flags: "{{ chromium_set_flags + [ 'disable-gpu' ] }}"
-
-    - name: Disable web security
-      when: chromium_disable_web_security
-      set_fact:
-        chromium_set_flags: "{{ chromium_set_flags + [ 'disable-web-security' ] }}"
-
-    - name: Ignore certificate errors
-      when: chromium_ignore_certificate_errors
-      set_fact:
-        chromium_set_flags: "{{ chromium_set_flags + [ 'ignore-certificate-errors' ] }}"
-
-    - name: Custom flags
-      set_fact:
-        chromium_set_flags: "{{ chromium_set_flags + chromium_custom_flags }}"
-
-    - name: Create flags string
-      set_fact:
-        chromium_set_flags_string: "{{ chromium_set_flags_string }} --{{ item }}"
-      loop: "{{ chromium_set_flags }}"
-
-    - name: Set flags
-      lineinfile:
-        path: /usr/bin/chromium-browser
-        regexp: '^(.*exec .+"\$@").*$'
-        line: '\1{{ chromium_set_flags_string }}'
-        backrefs: yes
+- name: Wrap and link
+  include_tasks: wrap-and-link.yml
